@@ -337,5 +337,7 @@ docker pull manishdhaipulle/my-2048-game:latest
 ## 👨‍💻 Author
 **Manish Dhaipulle**
 DevOps & Cloud Platform Engineering
+
 GitHub: https://github.com/Manishdgithub/githubAction2048
+
 Docker Hub: https://hub.docker.com/repository/docker/manishdhaipulle/my-2048-game/general
