@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  IMAGE_NAME: manishdhaipulle/my-2048-game
+  IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
 
 jobs:
   security:
