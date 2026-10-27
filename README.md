@@ -261,6 +261,7 @@ Required secrets:
 |---|---|
 | `DOCKERHUB_USERNAME` | Docker Hub username |
 | `DOCKERHUB_TOKEN` | Docker Hub personal access token with appropriate permissions |
+| `IMAGE_NAME` | Docker Image name |
 
 Configure these under:
 
