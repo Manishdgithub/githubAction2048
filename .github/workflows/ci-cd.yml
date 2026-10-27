@@ -61,17 +61,18 @@ jobs:
       - name: Verify image was created
         run: docker image inspect "$IMAGE_NAME:${GITHUB_SHA::12}"
 
-      - name: Start application container
+      - name: Run container
         run: |
           docker run -d \
             --name game-test \
-            -p 127.0.0.1:8080:80 \
-            "$IMAGE_NAME:${GITHUB_SHA::12}"
+            -p 127.0.0.1:8080:8080 \
+            "$IMAGE_NAME:${GITHUB_SHA}"
 
       - name: Smoke test
         shell: bash
         run: |
           set -e
+      
           for i in $(seq 1 15); do
             if curl --fail --silent \
               http://127.0.0.1:8080/ \
@@ -84,16 +85,14 @@ jobs:
           if [ ! -s response.html ]; then
             echo "ERROR: Application did not return an HTML response."
             docker ps -a
-            docker logs game-2048-test || true
+            docker logs game-test || true
             exit 1
           fi
       
-          echo "Checking HTML..."
           grep -qi '<html' response.html
-          echo "Checking game.js..."
           grep -q 'game.js' response.html
-          echo "Checking style.css..."
           grep -q 'style.css' response.html
+      
           echo "Smoke test passed."
 
       - name: Show container logs on failure
