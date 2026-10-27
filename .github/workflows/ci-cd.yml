@@ -68,20 +68,33 @@ jobs:
             -p 127.0.0.1:8080:80 \
             "$IMAGE_NAME:${GITHUB_SHA::12}"
 
-      - name: Smoke test application
+      - name: Smoke test
+        shell: bash
         run: |
+          set -e
           for i in $(seq 1 15); do
-            if curl --fail --silent http://127.0.0.1:8080/ \
+            if curl --fail --silent \
+              http://127.0.0.1:8080/ \
               -o response.html; then
               break
             fi
             sleep 2
           done
-
-          test -s response.html
+      
+          if [ ! -s response.html ]; then
+            echo "ERROR: Application did not return an HTML response."
+            docker ps -a
+            docker logs game-2048-test || true
+            exit 1
+          fi
+      
+          echo "Checking HTML..."
           grep -qi '<html' response.html
+          echo "Checking game.js..."
           grep -q 'game.js' response.html
+          echo "Checking style.css..."
           grep -q 'style.css' response.html
+          echo "Smoke test passed."
 
       - name: Show container logs on failure
         if: failure()
