@@ -251,7 +251,7 @@ Scans the built image for container-image vulnerabilities.
 
 The scan must reference the same image tag that was built and tested.
 
-### 6. Docker Hub Authentication
+### 6. Docker Hub Authentication 
 
 The workflow authenticates using GitHub Actions repository secrets instead of hardcoded credentials.
 
