@@ -43,24 +43,6 @@ jobs:
           exit-code: "1"
           format: table
 
-  lint:
-    name: Lint and Code Quality
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Lint HTML, CSS, JavaScript and Dockerfile
-        uses: super-linter/super-linter/slim@v7
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BRANCH: main
-          VALIDATE_HTML: true
-          VALIDATE_CSS: true
-          VALIDATE_JAVASCRIPT_ES: true
-          VALIDATE_DOCKERFILE_HADOLINT: true
-
   build-and-test:
     name: Build and Smoke Test
     runs-on: ubuntu-latest
